@@ -31,24 +31,34 @@
                         index: 'index',
                         title: '系统首页',
                     },
-                    // {
-                    //     icon: 'el-icon-setting',
-                    //     index: 'test',
-                    //     title: 'sdfasd',
-                    //     subs: [
-                    //         {
-                    //             index: 'goods',
-                    //             title: '物品管理'
-                    //         },
-                    //         {
-                    //             index: 'store',
-                    //             title: '店铺管理'
-                    //         },
-                    //     ]
-                    // },
+
                     {
                         icon: 'el-icon-setting',
-                        index: 'product',
+                        index: 'test',
+                        title: 'sdfasd',
+                        subs: [
+                            {
+                                index: 'goods',
+                                title: '物品管理'
+                            },
+                            {
+                                index: 'store',
+                                title: '店铺管理'
+                            },
+                            {
+                                index: 'product',
+                                title: '商品管理'
+                            },
+                            {
+                                index: 'warehouse',
+                                title: '仓库管理'
+                            },
+                        ]
+                    },
+
+                    {
+                        icon: 'el-icon-setting',
+                        index: 'productddd',
                         title: '商品中心',
                         subs: [
                           // {
@@ -59,22 +69,22 @@
                             //     index: 'organizationTree',
                             //     title: '机构管理'
                             // },
-                            {
-                                index: 'sysUser',
-                                title: '商品管理'
-                            },
-                            {
-                                index: 'sysRole',
-                                title: '仓库管理'
-                            },
+                            // {
+                            //     index: 'sysUser',
+                            //     title: '商品管理'
+                            // },
+                            // {
+                            //     index: 'sysRole',
+                            //     title: '仓库管理'
+                            // },
                             // {
                             //     index: 'sysAcl',
                             //     title: '角色资源授权'
                             // },
-                            {
-                                index: 'sysResource',
-                                title: '店铺管理'
-                            },
+                            // {
+                            //     index: 'sysResource',
+                            //     title: '店铺管理'
+                            // },
                             // {
                             //     index: 'sysMenu',
                             //     title: '菜单管理'

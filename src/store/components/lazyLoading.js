@@ -124,6 +124,16 @@ const dynamicRouter = [
     component: resolve => require(['@/components/goods'], resolve),
   },
   {
+    name: 'warehouse',
+    path: '/warehouse',
+    component: resolve => require(['@/components/warehouse'], resolve),
+  },
+  {
+    name: 'product',
+    path: '/product',
+    component: resolve => require(['@/components/product'], resolve),
+  },
+  {
     name: 'SysUser',
     path: '/sysUser',
 

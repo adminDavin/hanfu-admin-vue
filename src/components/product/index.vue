@@ -3,8 +3,7 @@
   <v-head></v-head>
   <v-sidebar></v-sidebar>
   <div class="content-box" :class="{'content-collapse':collapse}">
-    <div>dddccccccccccccccccccccccccccccccccccccccccccccccc</div>
-    <hf-stone></hf-stone>
+    <product></product>
   </div>
 </div>
 </template>
@@ -12,11 +11,11 @@
 <script>
 import vSidebar from '@/components/common/sidebar.vue';
 import vHead from '@/components/common/header.vue';
-import hfStone from './hf-store';
+import product from './product.vue';
 export default {
   name: 'store',
   components: { 
-    vHead, vSidebar, hfStone
+    vHead, vSidebar, product
   },
   data() {
     return {

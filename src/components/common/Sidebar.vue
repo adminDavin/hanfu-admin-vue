@@ -31,21 +31,21 @@
                         index: 'index',
                         title: '系统首页',
                     },
-                    {
-                        icon: 'el-icon-setting',
-                        index: 'test',
-                        title: 'sdfasd',
-                        subs: [
-                            {
-                                index: 'goods',
-                                title: '物品管理'
-                            },
-                            {
-                                index: 'store',
-                                title: '店铺管理'
-                            },
-                        ]
-                    },
+                    // {
+                    //     icon: 'el-icon-setting',
+                    //     index: 'test',
+                    //     title: 'sdfasd',
+                    //     subs: [
+                    //         {
+                    //             index: 'goods',
+                    //             title: '物品管理'
+                    //         },
+                    //         {
+                    //             index: 'store',
+                    //             title: '店铺管理'
+                    //         },
+                    //     ]
+                    // },
                     {
                         icon: 'el-icon-setting',
                         index: 'product',

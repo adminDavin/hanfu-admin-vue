@@ -88,9 +88,9 @@
         <el-form-item label="店铺描述" prop="stoneDesc" label-width="150px">
           <el-input v-model="addForm.stoneDesc" auto-complete="off"></el-input>
         </el-form-item>
-        <el-form-item label="店铺状态 (输入0为营业状态/1未营业状态)" prop="stoneStatus" label-width="300px">
+       <!-- <el-form-item label="店铺状态 (输入0为营业状态/1未营业状态)" prop="stoneStatus" label-width="300px">
           <el-input v-model="addForm.stoneStatus" auto-complete="off"></el-input>
-        </el-form-item>
+        </el-form-item> -->
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-button @click="addFormVisible = false">取消</el-button>
@@ -355,7 +355,7 @@
         addForm: {
           hfName: '',
           stoneDesc: '',
-
+          stoneStatus:1,
           stoneStatus: '',
           userId: 1,
           stoneManagerId: 1

@@ -13,15 +13,20 @@
       <el-form style="background: #fff;padding: 20px;padding-top: 30px;" :inline="true" :model="editRow" label-width="80px"
         :rules="bianaddFormRules" ref="bianinfoForms">
         <el-form-item label="店铺名称" prop="hfName">
-          <el-input v-model="editRow.hfName" auto-complete="off"></el-input>
+          <el-input v-model="editRow.hfName" auto-complete="off" disabled="true"></el-input>
         </el-form-item>
-        <el-form-item label="店铺描述" prop="hfDesc" label-width="150px">
-          <el-input v-model="editRow.hfDesc" auto-complete="off"></el-input>
+        <br>
+        <el-form-item label="店铺描述" prop="hfDesc" >
+          <el-input v-model="editRow.hfDesc" auto-complete="off" type="textarea" resize="none"  style="width:550px;"></el-input>
         </el-form-item>
-        <el-form-item label="店铺状态 (输入0为营业状态/1未营业状态)" prop="hfStatus" label-width="300px">
-          <el-input v-model="editRow.hfStatus" auto-complete="off"></el-input>
+        <br>
+        <el-form-item label="店铺状态" prop="hfStatus">
+            <el-radio v-model="editRow.hfStatus" label="1">营业</el-radio>
+            <el-radio v-model="editRow.hfStatus" label="2">未营业</el-radio>
+          <!-- <el-input v-model="editRow.hfStatus" auto-complete="off"></el-input> -->
         </el-form-item>
-        <el-button type="primary" @click="bianSubmit" :loading="addLoading">提交</el-button>
+        <br>
+        <el-button style="margin-left: 20px;" type="primary" @click="bianSubmit" :loading="addLoading">提交</el-button>
       </el-form>
 
       <!-- 页面内容区begin -->
@@ -87,10 +92,11 @@
               <el-form-item label="物品名称" prop="hfName">
                 <el-input v-model="editRow.hfName" auto-complete="off" disabled="true"></el-input>
               </el-form-item>
-              <el-form-item label="物品描述" prop="hfDesc">
+              <br>
+              <el-form-item label="物品描述" prop="goodsDesc">
                 <div style="display: flex;align-items: center;">
-                  <el-input v-model="editRow.hfDesc" auto-complete="off"></el-input>
-                  <div style="margin-left: 13px; border-radius: 2px; color: #fff; background-color: #00D1B2;
+                  <el-input v-model="editRow.goodsDesc" auto-complete="off"  type="textarea" resize="none" style="width: 400px;"></el-input>
+                  <div @click="bianjiSubmit"  style="margin-left: 13px; border-radius: 2px; color: #fff; background-color: #00D1B2;
                   justify-content: center;width: 60px;height: 30px;  display: flex;align-items: center;">提交</div>
                 </div>
               </el-form-item>
@@ -124,9 +130,9 @@
                <div style="width: 100%;height: 1px;border-bottom: 1px solid #E4E4E4;margin-top: 20px;"></div>
               <br>
 <div style="font-size: 17px;margin-bottom: 30px;">价格信息</div>
-              <el-form-item label="价格" prop="hfPrice">
+              <el-form-item label="售卖价格" prop="hfPrice" >
                 <div style="display: flex;align-items: center;">
-                  <el-input v-model="hfPrice" auto-complete="off"></el-input>
+                  <el-input v-model="hfPrice" auto-complete="off" placeholder="以分为单位"></el-input>
                   <div @click="setPrice" style="margin-left: 13px; border-radius: 2px; color: #fff; background-color: #00D1B2; justify-content: center; width: 23px;height: 23px; display: flex;align-items: center;">+</div>
                 </div>
               </el-form-item>
@@ -169,7 +175,7 @@
                 <template slot-scope="scope">
                   <!-- <el-button type="primary" plain size="small" @click="addgui(scope.row)" style="margin-bottom: 10px;">查看规格</el-button> -->
                   <el-button type="primary" plain size="small" @click="biangui(scope.row)" style="margin-bottom: 10px;">编辑</el-button>
-                  <el-button type="danger" plain size="small" @click="deletegui(scope.row)">删除</el-button>
+                  <el-button type="danger" plain size="small" @click="deletegui(scope.row)" >删除</el-button>
                 </template>
               </el-table-column>
             </el-table>
@@ -194,15 +200,15 @@
               <!--   <el-table-column prop="specValue" label="规格" align="center">
             </el-table-column> -->
 
-              <el-table-column label="物品图片" align="center">
+              <!-- <el-table-column label="物品图片" align="center">
                 <template slot-scope="scope">
                   　　　　<img src="https://img2018.cnblogs.com/blog/1170749/201810/1170749-20181011114946113-918123992.png"
                     width="40" height="40" class="head_pic" />
                   　　</template>
-              </el-table-column>
+              </el-table-column> -->
               <el-table-column label="操作" align="center" width="270px">
                 <template slot-scope="scope">
-                  <el-button size="small" @click="deletegoods(scope.row)">删除</el-button>
+                  <el-button size="small" @click="deletegoods(scope.row)" type="danger">删除</el-button>
                   <el-button size="small" @click="bianji(scope.row)">编辑</el-button>
                   <el-button size="small" @click="upLoadPic(scope.row)">上传图片</el-button>
                 </template>
@@ -364,7 +370,7 @@
         // this.$refs.bianinfoForms.validate(valid => {
         //   if (valid) {
         // this.$confirm("确认添加吗？", "提示", {}).then(() => {
-          this.addLoading = true;
+          // this.addLoading = true;
           let obj = {};
           obj = this.tableDataku.find((item) => { //这里的selectList就是上面遍历的数据源
             //筛选出匹配数据
@@ -377,14 +383,15 @@
           }
 
           this.kuid = obj.id;
-          let  goodsId =this.bianrow.productId;
-          console.log(goodsId, this.kuid);
+          let  goodsId =this.bianrow.id;
+          var _this=this;
+          console.log(goodsId, this.kuid,_this.quantity);
           this.$ajax({
             method: "post",
             url: "/api/goods/setGoodsQuantity",
             params:{
-               wareHouseId :this.kuid,
-              quantity :this.quantity,
+              wareHouseId :_this.kuid,
+              quantity :_this.quantity,
               hfGoodsId  :goodsId,
               requestId:1,
               timestamp:1,
@@ -395,7 +402,7 @@
             console.log('添加物品规格', res);
 
             // this.editFormVisible1 = false;
-            this.$message({
+            _this.$message({
               message: "提交成功",
               type: "success"
             });
@@ -403,7 +410,7 @@
             //   path: 'sysResource'
             // })
           }).catch(res => {
-            this.$message({
+            _this.$message({
               message: "提交失败",
 
             });
@@ -444,7 +451,7 @@
         // this.$confirm("确认添加吗？", "提示", {}).then(() => {
           this.addLoading = true;
 
-          let  goodsId =this.bianrow.productId;
+          let  goodsId =this.bianrow.id;
           console.log(this.hfPrice,goodsId);
           this.$ajax({
             method: "post",
@@ -487,7 +494,7 @@
           if(this.hfPrice==''){
             return;
             }
-          let  goodsId =this.bianrow.productId;
+          let  goodsId =this.bianrow.id;
           console.log(this.hfPrice,goodsId);
           this.$ajax({
             method: "post",
@@ -681,17 +688,19 @@
         // this.value4 = row.productCategoryName;
 
         var _this=this;
-        console.log(this.bianrow.productId)
+        console.log("物品id",this.bianrow.productId);
         this.$ajax({
           method: "get",
           url: "/api/goods/byGoodsId",
           params: {
-            goodsId: this.bianrow.productId
+            goodsId: _this.bianrow.id
           }
         }).then(
           function(resultData) {
             console.log('查询物品详情', resultData);
             // _this.cities=resultData.data.data;
+           _this.hfPrice= resultData.data.data.sellPrice;
+            _this.quantity= resultData.data.data.sellPrice;
             //  _this.checkedCities=resultData.data.data;
             // console.log(_this.cities);
             // _this.leiMu = resultData.data.data;

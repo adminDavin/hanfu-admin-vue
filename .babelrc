@@ -1,5 +1,4 @@
 {
-   "babelrc": false,
   "presets": [
     ["env", {
       // "modules": false,

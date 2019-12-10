@@ -27,7 +27,7 @@ const ADD =add
     params: {
       amount:add.amount,//支付金额
       PurchasePrice:add.purchasePrice ,//购买价格
-      PurchaseQuantity :add.purchaseQuantity,//购买数量   少了
+      PurchaseQuantity :add.purchaseQuantity,//购买数量
       username:add.Addusername,//用户名
       logisticsCompany :add.logisticsCompany,//物流公司名字
       orderDetailStatus:add.orderDetailStatus,//订单详情状况
@@ -90,6 +90,7 @@ function createorder(id) {
 }
 //修改订单
    function update(params){
+     console.log("adaa",params.id)
      let fd = new FormData();
       fd.append('amount',params.amount)
       // fd.append('createTime',params.createTime )
@@ -154,6 +155,10 @@ function print(id){
   }
   return Axios.get("/order/order/print", params);
 }
+  //回复接口
+   function assess(){
+
+   }
 
 
 

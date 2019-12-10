@@ -119,6 +119,30 @@ const dynamicRouter = [
     }
   },
   {
+    name: 'hf-tong',
+    path: '/hf-tong',
+    component: resolve => require(['@/components/hf-tong'], resolve),
+    meta: {
+      title: '即时通讯'
+    }
+  },
+  {
+    name: 'hf-record',
+    path: '/hf-record',
+    component: resolve => require(['@/components/hf-record'], resolve),
+    meta: {
+      title: '首页'
+    }
+  },
+  {
+    name: 'hf-census',
+    path: '/hf-census',
+    component: resolve => require(['@/components/hf-census'], resolve),
+    meta: {
+      title: '数据统计'
+    }
+  },
+  {
     name: 'hf-detail',
     path: '/hf-detail',
     component: resolve => require(['@/components/hf-detail'], resolve),

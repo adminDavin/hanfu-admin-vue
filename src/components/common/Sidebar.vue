@@ -5,17 +5,28 @@
     <el-submenu index="1">
       <template slot="title">
         <i class="el-icon-document"></i>
-
         <span>商品中心</span>
       </template>
       <el-menu-item-group>
         <el-menu-item index="product">
           <i class="el-icon-loading"></i>
         商品管理</el-menu-item>
-
       </el-menu-item-group>
-
     </el-submenu>
+
+<el-menu-item index="hf-record">
+     <i class="el-icon-location"></i>
+
+     <span slot="title">首页</span>
+   </el-menu-item>
+
+
+     <el-menu-item index="hf-census">
+     <i class="el-icon-location"></i>
+     <span slot="title">数据统计</span>
+   </el-menu-item>
+
+
 
     <el-menu-item index="store">
       <i class="el-icon-menu"></i>
@@ -122,11 +133,22 @@
 
       <span slot="title">设置</span>
     </el-menu-item>
+
    <el-menu-item index="hf-category">
      <i class="el-icon-location"></i>
 
      <span slot="title">类目管理</span>
    </el-menu-item>
+
+<el-menu-item index="hf-tong">
+     <i class="el-icon-location"></i>
+
+     <span slot="title">及时通讯</span>
+   </el-menu-item>
+
+
+
+
 
 
   </el-menu>
@@ -222,7 +244,19 @@ export default {
               {
                 index: 'hf-zichan',
                 title: '资产明细'
-               }
+               },
+               {
+                 index: 'hf-record',
+                 title: '首页'
+                },
+                {
+                  index: 'hf-census',
+                  title: '数据统计'
+                 },
+                 {
+                   index: 'hf-tong',
+                   title: '即时通讯'
+                  }
           ]
         },
         {

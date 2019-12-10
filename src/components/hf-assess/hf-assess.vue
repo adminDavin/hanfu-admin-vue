@@ -5,7 +5,7 @@
  </div>
 
  <div class="demo-input-suffix" style="margin-left: 300px;">
-   <div style="font-size: 20px;float: left;margin-top:30px; color: #666666">订单搜索</div>
+   <div style="font-size: 20px;float: left;margin-top:30px; color: #666666">订单编号</div>
    <el-input
      placeholder="请输入订单号"
      v-model="searchVal" style="width: 200px;margin-top:23px;margin-left: 30px;" @keyup.enter.native="onEnterSearch()">
@@ -118,7 +118,7 @@
                        <template slot-scope="scope"  >
 
                          <el-button
-                           @click.native.prevent="detail(scope.$index, tableData)"
+                           @click="assess(scope)"
                            type="text" id="yincang"
                            size="small" style="color: #A3A0FB;  ">
                            回复
@@ -144,6 +144,7 @@
 </template>
 <script>
   import api from '@/apis/order-api.js';
+
   import Axios from "axios";
   export default {
     data() {
@@ -286,20 +287,22 @@
            }
           ,
           //查看订单详情
-          detail(){
-            api.orderDetail(this.detail).then(res=>{
-            console.log(res.data)
-            })
-          },
+          // detail(){
+          //   api.orderDetail(this.detail).then(res=>{
+          //   console.log(res.data)
+          //   })
+          // },
           //查看订单状态
-
-
-
-
-
           send(){
 
           },
+            //回复
+              assess(row){
+                console.log(row)
+              }
+              ,
+
+
               deleteRow(index, rows) {
               rows.splice(index, 1);
             },

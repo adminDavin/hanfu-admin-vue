@@ -67,6 +67,13 @@ const router = new VueRouter({
        }
      },
      {
+        path: '/hf-record',
+        component: resolve => require(['@/components/hf-record'], resolve),
+        meta: {
+          title: '首页'
+        }
+      },
+     {
         path: '/hf-pair',
         component: resolve => require(['@/components/hf-pair'], resolve),
         meta: {
@@ -80,6 +87,13 @@ const router = new VueRouter({
            title: '类目管理'
          }
        },
+       {
+          path: '/hf-census',
+          component: resolve => require(['@/components/hf-census'], resolve),
+          meta: {
+            title: '数据统计'
+          }
+        },
       {
          path: '/hf-message',
          component: resolve => require(['@/components/hf-message'], resolve),
@@ -94,7 +108,13 @@ const router = new VueRouter({
            title: '设置'
          }
        },
-
+        {
+         path: '/hf-tong',
+         component: resolve => require(['@/components/hf-tong'], resolve),
+         meta: {
+           title: '即时通讯'
+         }
+       },
        {
           path: '/hf-coupon',
           component: resolve => require(['@/components/hf-coupon'], resolve),

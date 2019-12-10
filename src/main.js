@@ -14,10 +14,11 @@ import util from './common/util'
 import Vuex from 'vuex'
 import Axios from 'axios'
 import store from './store'
+Vue.prototype.$echarts = echarts
+import echarts from 'echarts'
 // import  ExportExcel from './ExportExcel'
 // import CKEditor from '@ckeditor/ckeditor5-vue';
 window.moment=require('moment')
-
 
 // import 'element-ui/lib/theme-chalk/index.css';
 // import '../static/css/theme-green/index.css';

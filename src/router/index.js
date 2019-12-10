@@ -67,6 +67,13 @@ const router = new VueRouter({
        }
      },
      {
+        path: '/hf-record',
+        component: resolve => require(['@/components/hf-record'], resolve),
+        meta: {
+          title: '数据统计'
+        }
+      },
+     {
         path: '/hf-pair',
         component: resolve => require(['@/components/hf-pair'], resolve),
         meta: {

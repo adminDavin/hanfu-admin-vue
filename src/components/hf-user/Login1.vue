@@ -27,10 +27,10 @@
    <div style="float: right; margin-top: -20px;"><a href="https://www.baidu.com">忘记密码?</a></div>
    <div class="denglu" style="cursor: pointer;" @click="login">登 录</div>
 
-<div class="buttonItem">
+<!-- <div class="buttonItem">
         <input v-model="vercode" type="text" placeholder="输入验证码">
         <div class="red sendCode" @click="sendMessage">{{btnText}}</div>
-    </div>
+    </div> -->
 
 
 
@@ -261,7 +261,8 @@ export default {
 
   }
     body{
-      background:url(../img/1.png)repeat;
+      background:url(../img/1.png) no-repeat;
+      background-size: 100%;
       width: 100%;
       height: 100%;
       position: absolute;
@@ -287,6 +288,7 @@ export default {
       background: url(../img/7.png) no-repeat;
       width:100%;
       height:100%;
+        background-size: 100%;
       // position:relative;
       float:left;
       // margin-left:20px;

@@ -1,0 +1,121 @@
+{
+  "id": "1549364",
+  "name": "AS ",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "299346",
+      "name": "设置",
+      "font_class": "set",
+      "unicode": "e62a",
+      "unicode_decimal": 58922
+    },
+    {
+      "icon_id": "559613",
+      "name": "消息",
+      "font_class": "xiaoxi",
+      "unicode": "e62f",
+      "unicode_decimal": 58927
+    },
+    {
+      "icon_id": "991323",
+      "name": "活动",
+      "font_class": "huodong",
+      "unicode": "e60c",
+      "unicode_decimal": 58892
+    },
+    {
+      "icon_id": "1068808",
+      "name": "优惠券",
+      "font_class": "weibiaoti2fuzhi02",
+      "unicode": "e61f",
+      "unicode_decimal": 58911
+    },
+    {
+      "icon_id": "1133838",
+      "name": "资产",
+      "font_class": "zichan",
+      "unicode": "e668",
+      "unicode_decimal": 58984
+    },
+    {
+      "icon_id": "1603689",
+      "name": "分享",
+      "font_class": "fenxiang",
+      "unicode": "e613",
+      "unicode_decimal": 58899
+    },
+    {
+      "icon_id": "1985085",
+      "name": "点赞",
+      "font_class": "dianzan",
+      "unicode": "e65c",
+      "unicode_decimal": 58972
+    },
+    {
+      "icon_id": "2402040",
+      "name": "箭头",
+      "font_class": "jiantou",
+      "unicode": "e614",
+      "unicode_decimal": 58900
+    },
+    {
+      "icon_id": "3764285",
+      "name": "订单 ",
+      "font_class": "weibiaoti-",
+      "unicode": "e612",
+      "unicode_decimal": 58898
+    },
+    {
+      "icon_id": "4251731",
+      "name": "会员",
+      "font_class": "huiyuan",
+      "unicode": "e641",
+      "unicode_decimal": 58945
+    },
+    {
+      "icon_id": "6447169",
+      "name": "分类管理",
+      "font_class": "fenleiguanli",
+      "unicode": "e643",
+      "unicode_decimal": 58947
+    },
+    {
+      "icon_id": "6880620",
+      "name": "消息",
+      "font_class": "xiaoxi1",
+      "unicode": "e61d",
+      "unicode_decimal": 58909
+    },
+    {
+      "icon_id": "7127389",
+      "name": "统计",
+      "font_class": "tongji",
+      "unicode": "e609",
+      "unicode_decimal": 58889
+    },
+    {
+      "icon_id": "8106227",
+      "name": "home",
+      "font_class": "home",
+      "unicode": "e69b",
+      "unicode_decimal": 59035
+    },
+    {
+      "icon_id": "8777512",
+      "name": "arrow_right",
+      "font_class": "icon-test",
+      "unicode": "e658",
+      "unicode_decimal": 58968
+    },
+    {
+      "icon_id": "11521279",
+      "name": "待评价",
+      "font_class": "daipingjia",
+      "unicode": "e772",
+      "unicode_decimal": 59250
+    }
+  ]
+}

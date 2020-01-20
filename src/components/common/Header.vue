@@ -8,27 +8,27 @@
         <div class="header-right">
             <div class="header-user-con">
                 <!-- <marquee onMouseOver="this.start()" style="font-size:18px;padding-bottom:4px;width:100px;" scrollamount="1">{{getlev}}</marquee> -->
-                <div style="font-size:18px;padding-bottom:4px;width:60px;">{{getlev}}</div>
+                <!-- <div style="font-size:18px;padding-bottom:4px;width:60px;">{{getlev}}</div> -->
                 <!-- 全屏显示 -->
-                <div class="btn-fullscreen" @click="handleFullScreen">
+               <!-- <div class="btn-fullscreen" @click="handleFullScreen">
                     <el-tooltip effect="dark" :content="fullscreen?`取消全屏`:`全屏`" placement="bottom">
                         <i class="el-icon-rank"></i>
                     </el-tooltip>
-                </div>
+                </div> -->
                 <!-- 消息中心 -->
-                <div class="btn-bell">
-                    <el-tooltip effect="dark" :content="message?`有${message}条未读消息`:`消息中心`" placement="bottom">
+               <div class="btn-bell">
+                  <!--  <el-tooltip effect="dark" :content="message?`有${message}条未读消息`:`消息中心`" placement="bottom">
                         <router-link to="/tabs">
                             <i class="el-icon-bell"></i>
                         </router-link>
-                    </el-tooltip>
-                    <span class="btn-bell-badge" v-if="message"></span>
+                    </el-tooltip> -->
+                    <!-- <span class="btn-bell-badge" v-if="message"></span> -->
                 </div>
                 <!-- 用户头像 -->
                 <div class="user-avator"><img src="static/img/img.jpg"></div>
                 <!-- 用户名下拉菜单 -->
                 <el-dropdown class="user-name" trigger="click" @command="handleCommand">
-                    <span class="el-dropdown-link">
+                   <span class="el-dropdown-link">
                         {{username}} <i class="el-icon-caret-bottom"></i>
                     </span>
                     <el-dropdown-menu slot="dropdown">
@@ -66,7 +66,7 @@
                 return username ? username : this.name;
             },
             getlev(){
-        
+
                 let levList = this.$common.getSessionStorage('lev',true);
                 let lev='';
                 if(levList){
@@ -74,7 +74,7 @@
                         lev+=levList[i].roleName;
                     }
                 }
-               
+
                 return lev ? lev : this.lev;
             }
         },

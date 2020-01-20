@@ -9,9 +9,7 @@
       <el-form-item label="商品名称" prop="productName">
         <el-input v-model="bianrow.productName" auto-complete="off" :disabled="true"></el-input>
       </el-form-item>
-      <el-form-item label="商品描述" prop="productDesc">
-        <el-input v-model="bianrow.productDesc" auto-complete="off" :disabled="true"></el-input>
-      </el-form-item>
+
       <el-form-item label="商品分类">
          <el-input v-model="value4" auto-complete="off" :disabled="true"></el-input>
         <!-- <el-select v-model="value4" placeholder="请选择" @change="changeQuentitySubject1(index)">
@@ -19,9 +17,13 @@
           </el-option>
         </el-select> -->
       </el-form-item>
-      <!-- <el-button type="primary" @click="bianjiSubmit" :loading="addLoading">提交</el-button> -->
+      <br>
+      <el-form-item label="商品描述" prop="productDesc">
+        <el-input v-model="bianrow.productDesc" auto-complete="off" type="textarea" style="width:600px;" resize="none"></el-input>
+      </el-form-item>
+      <el-button type="primary" @click="bianjiSubmit" :loading="addLoading" style="margin-top: 10px;">提交</el-button>
     </el-form>
-    <div style="background: #fff;margin-top: 20px;padding: 40px 0 20px 20px;">
+    <div style="background: #fff;margin-top: 20px;padding: 40px 0 20px 20px;display: flex;">
       <el-form :inline="true" :model="guiform" label-width="80px" :rules="guigerulue" ref="guiform1">
         <div style="font-size: 17px;margin-bottom: 30px;">
           添加规格:
@@ -29,24 +31,27 @@
 
 
         <el-form-item label="规格名称:" prop="hfName" label-width="100px">
-          <el-input v-model="guiform.hfName" auto-complete="off"></el-input>
+          <el-input v-model="guiform.hfName" auto-complete="off" placeholder="颜色"></el-input>
         </el-form-item>
+        <br>
         <el-form-item label="规格类型:" prop="specType" label-width="100px">
-          <el-input auto-complete="off" v-model="guiform.specType"></el-input>
+          <el-input auto-complete="off" v-model="guiform.specType" placeholder="颜色"></el-input>
         </el-form-item>
+        <br>
+
         <el-form-item label="规格值:" prop="specValue" label-width="100px">
-          <el-input auto-complete="off" v-model="guiform.specValue "></el-input>
+          <el-input auto-complete="off" v-model="guiform.specValue" placeholder="黑色/白色"></el-input>
         </el-form-item>
+        <br>
         <el-form-item label="规格单位:" prop="specUnit" label-width="100px">
           <el-input auto-complete="off" v-model="guiform.specUnit"></el-input>
         </el-form-item>
-        <el-button type="primary" @click="add" :loading="editLoading">添加</el-button>
+        <br>
+        <el-button style="width: 100px;margin-left: 90px;" type="primary" @click="add" :loading="editLoading">添加</el-button>
       </el-form>
-      <div style="font-size: 17px;margin-bottom: 30px;margin-top: 20px;">
-        规格:
-      </div>
-      <el-table :data="guigelist" size="mini" highlight-current-row border class="el-tb-edit mgt20" ref="multipleTable"
-        style="margin-bottom: 40px;" tooltip-effect="dark" v-loading="listLoading" @selection-change="selectChange">
+
+      <el-table   :data="guigelist" size="mini" highlight-current-row border class="el-tb-edit mgt20" ref="multipleTable"
+        style="margin-bottom: 40px;margin-left: 20px;" tooltip-effect="dark" v-loading="listLoading" @selection-change="selectChange">
         <el-table-column type="index" label="序号" header-align="center" align="center">
         </el-table-column>
         <el-table-column label="规格名称" align="center" prop="hfName">

@@ -31,6 +31,7 @@
                         index: 'index',
                         title: '系统首页',
                     },
+
                     {
                         icon: 'el-icon-setting',
                         index: 'test',
@@ -54,6 +55,7 @@
                             },
                         ]
                     },
+
                     {
                         icon: 'el-icon-setting',
                         index: 'productddd',

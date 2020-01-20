@@ -74,18 +74,21 @@
     <!--新增界面-->
     <el-dialog title="新增" :visible.sync="addFormVisible" :close-on-click-modal="false">
       <el-form :inline="true" :model="addForm" label-width="80px" :rules="addFormRules" ref="addForm">
-        <el-form-item label="商品名称" prop="hfName">
-          <el-input v-model="addForm.hfName" auto-complete="off"></el-input>
-        </el-form-item>
-        <el-form-item label="商品描述" prop="productDesc">
-          <el-input v-model="addForm.productDesc" auto-complete="off"></el-input>
-        </el-form-item>
         <el-form-item label="商品分类">
           <el-select v-model="value" placeholder="请选择" @change="changeQuentitySubject(index)">
             <el-option v-for="(item,index) in leiMu" :key="index" :label="item.hfName" :value="item.hfName">
             </el-option>
           </el-select>
         </el-form-item>
+        <br>
+        <el-form-item label="商品名称" prop="hfName">
+          <el-input v-model="addForm.hfName" auto-complete="off"></el-input>
+        </el-form-item>
+        <br>
+        <el-form-item label="商品描述" prop="productDesc" >
+          <el-input v-model="addForm.productDesc" auto-complete="off" type="textarea" style="width:550px;" resize="none"></el-input>
+        </el-form-item>
+        <br>
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-button @click="addFormVisible = false">取消</el-button>
@@ -185,7 +188,7 @@
       <el-form :inline="true" label-width="500px" v-loading="treeLoading">
         <el-form-item>
           <el-tree :data="treeData" :props="defaultProps" node-key="id" :expand-on-click-node="false">
-            <span class="custom-tree-node" slot-scope="{ node, data }">
+            <span class="custom-tree-node" slot-scope="{node, data}">
               <span>{{node.label}}
                 <i class="el-icon-plus" @click="() => append(node)">选择</i>
               </span>

@@ -233,7 +233,7 @@
 </template>
 
 <script>
-import api from '@/api/commodity_api.js'
+import api from '@/api/commodity_api.js';
 // import { log } from 'util'
 export default {
   data () {
@@ -245,8 +245,8 @@ export default {
           hfName: '',
           modifyTime: '',
           specType: '',
-          specValue: ''
-        }
+          specValue: '',
+        },
       ],
       conceal: '1',
       judgment: '0',
@@ -279,10 +279,10 @@ export default {
       modelTags: [], // s码
       // 时间日期表单
       form: {
-        productId: '48'
+        productId: '48',
       },
       form1: {
-        goodsId: '39'
+        goodsId: '39',
       },
       leiMu: {},
       // 添加商品
@@ -302,7 +302,7 @@ export default {
         token: '11238', // *
         userId: '12', // 用户id*
         // cancelId: '2', // 核销员Id
-        fileInfo: '' // 图片路径
+        fileInfo: '', // 图片路径
       },
       // 添加商品规格
       specification: {
@@ -312,7 +312,7 @@ export default {
         requestId: '',
         timestamp: '',
         token: '',
-        userId: ''
+        userId: '',
       },
       // 添加物品规格值
       specGoods: {
@@ -322,7 +322,7 @@ export default {
         specValue: '',
         timestamp: '111',
         token: '11',
-        userId: '11'
+        userId: '11',
       },
       // 添加物品
       ruleForm1: {
@@ -339,7 +339,7 @@ export default {
         requestId: '123123123', // 请求id, 发起请求的随机数, 用来判断请求是否重
         token: '11238', // 登录成功后返回的token
         userId: '12', // 用户id
-        fileInfo1: []
+        fileInfo1: [],
       },
 
       // 设置价格
@@ -356,17 +356,17 @@ export default {
         token: '11238',
         timestamp: '11',
         userId: '12', // 用户id
-        username: '12' // 店家名称, 登录修改的用户名称
+        username: '12', // 店家名称, 登录修改的用户名称
         // specValue: ['1.1'] // 标签 颜色 // 规格
       },
       value: '',
       // 添加规格
       specificationForm1: {
-        specValue: [] // 标签 颜色 // 规格
+        specValue: [], // 标签 颜色 // 规格
       },
       // 添加规格
       specificationForm2: {
-        specValue: [] // 标签 颜色 // 规格
+        specValue: [], // 标签 颜色 // 规格
       },
       ruleForm2: {
         name: '',
@@ -377,7 +377,7 @@ export default {
         delivery: false,
         type: [],
         resource: '',
-        desc: ''
+        desc: '',
       },
 
       tabledatas: [],
@@ -392,65 +392,60 @@ export default {
       rules: {
         hfName: [
           { required: true, message: '请输入活动名称', trigger: 'blur' },
-          { min: 3, max: 5, message: '长度在 3 到 5 个字符', trigger: 'blur' }
-        ]
-      }
-    }
+          { min: 3, max: 5, message: '长度在 3 到 5 个字符', trigger: 'blur' },
+        ],
+      },
+    };
   },
   created () {
-    this.getcategory()
-    this.verifier1()
-    this.scope()
+    this.getcategory();
+    this.verifier1();
+    this.scope();
+    this.test();
     let lists = [
-      { tab1: '1', tab2: '颜色', tab3: '红色' }
-    ]
-    lists.forEach(element => {
-      element['show'] = false
-    })
-    this.commoditytable = lists
-    this.change()
+      { tab1: '1', tab2: '颜色', tab3: '红色' },
+    ];
+    lists.forEach((element) => {
+      element.show = false;
+    });
+    this.commoditytable = lists;
+    this.change();
   },
   methods: {
     // 详情
     particulars (scope) {
-      console.log(scope)
-      this.goodsDesc = scope.row.goodsDesc
-      this.dialogTableVisible = true
+      console.log(scope);
+      this.goodsDesc = scope.row.goodsDesc;
+      this.dialogTableVisible = true;
     },
     // 删除
     deletion (scope) {
       this.$confirm('确认删除吗？', '提示', {}).then(() => {
         api
           .deleteGood(scope.row.id)
-          .then(res => {
+          .then((res) => {
             this.$message({
               message: '删除成功',
-              type: 'success'
-            })
-          })
-          .catch(err => {
-            console.log(err)
-          })
-      })
+              type: 'success',
+            });
+          });
+
+      });
     },
 
     // 提交价格
     submitPrice (scope) {
-      this.specificationForm.quantity = scope.row.quantity
-      this.specificationForm.sellPrice = scope.row.sellPrice
-      this.specificationForm.linePrice = scope.row.linePrice
+      this.specificationForm.quantity = scope.row.quantity;
+      this.specificationForm.sellPrice = scope.row.sellPrice;
+      this.specificationForm.linePrice = scope.row.linePrice;
       api
         .setPrice(this.specificationForm)
-        .then(res => {
+        .then((res) => {
           this.$message({
             message: '价格提交成功',
-            type: 'success'
-          })
-        })
-        .catch(function (error) {
-          // handle error
-          console.log(error)
-        })
+            type: 'success',
+          });
+        });
     },
     // 添加商品规格
     save (scope) {
@@ -458,66 +453,60 @@ export default {
         this.$notify({
           title: '提醒',
           message: '请先加商品',
-          duration: 0
-        })
-        return
+          duration: 0,
+        });
+        return;
       }
-      scope.row.show = false
-      this.specification.hfName = scope.row.tab2
-      this.specification.specValue = scope.row.tab3
+      scope.row.show = false;
+      this.specification.hfName = scope.row.tab2;
+      this.specification.specValue = scope.row.tab3;
       api
         .addSpecify(this.specification)
-        .then(res => {
+        .then((res) => {
           this.$message({
             message: '添加商品规格成功',
-            type: 'success'
-          })
-          api.specifies(this.specification.productId).then(res => {
-            console.log('获取规格ID', res)
-            this.tabledatas = res.data.data
-            console.log(res)
+            type: 'success',
+          });
+          api.specifies(this.specification.productId).then((res) => {
+            console.log('获取规格ID', res);
+            this.tabledatas = res.data.data;
+            console.log(res);
             for (var i = 0; i < res.data.data.length; i++) {
               this.cols.push({
                 prop: 'specValue' + i,
-                label: res.data.data[i].hfName
-              })
-              console.log(this.tabledatas)
+                label: res.data.data[i].hfName,
+              });
             }
-            console.log(this.specGoods.goodsId)
-          })
-        })
-        .catch(function (error) {
-          console.log(error)
-        })
+          });
+        });
+
     },
     // 输入事件
     inputEvent: function (e) {
-      console.log(e.target.value) // 实时获取输入值
-      this.specGoods.specValue = e.target.value
+      console.log(e.target.value); // 实时获取输入值
+      this.specGoods.specValue = e.target.value;
       // console.log(index)// 获取点击输入框的索引
     },
 
     // 添加物品规格值
     Article (value, scope) {
-      console.log(scope)
+      console.log(scope);
       // console.log(scope.column.test)
       // console.log('内容', this.$refs.abc[0].value)
       // console.log('内容2', value)
-      console.log('2', this.tabledatas[scope.column.test].id)
-      this.specGoods.productSpecId = this.tabledatas[scope.column.test].id
+      console.log('2', this.tabledatas[scope.column.test].id);
+      this.specGoods.productSpecId = this.tabledatas[scope.column.test].id;
       api
         .additionSpecs(this.specGoods)
-        .then(res => {
-        })
-        .catch(function (error) {
-          // handle error
-          console.log(error)
-        })
+        .then((res) => {
+          console.log(res);
+        });
+
     },
     renderHeader (h, { column, $index }) {
-      column.test = $index
-      console.log('h', this.cols)
-      console.log(column) // 这里打印下就知道新增属性成功
+      column.test = $index;
+      console.log('h', this.cols);
+      console.log(column); // 这里打印下就知道新增属性成功
       // return (
       //   <span>竞猜对象信息</span>
       // )
@@ -529,23 +518,22 @@ export default {
         hfName: '',
         modifyTime: '',
         specType: '',
-        specValue: ''
-      }
-      this.tabledata.push(row)
+        specValue: '',
+      };
+      this.tabledata.push(row);
     },
     // 添加一行商品规格
     addGoodsSpecificationList () {
-      let row = { tab1: '', tab2: '', tab3: '' }
-      this.commoditytable.push(row)
+      let row = { tab1: '', tab2: '', tab3: '' };
+      this.commoditytable.push(row);
     },
 
     loseFcous (index, row) {
-      debugger
-      row.seen = false
+
+      row.seen = false;
     },
     cellClick (row, column) {
-      debugger
-      row.seen = true
+      row.seen = true;
     },
 
     addition () {
@@ -556,66 +544,64 @@ export default {
       // this.value2 = ''
     },
     handleEdit (e) {
-      console.log(e)
+      console.log(e);
     },
     // 获取规格
     huq () {
       api
         .gainSpecifications()
-        .then(res => {
-          this.threecategs = res.data.data
+        .then((res) => {
+          this.threecategs = res.data.data;
           // console.log('类目', this.onecatalogues)
         })
-        .catch(function (error) {
+        ['catch'](function (error) {
           // handle error
-          console.log(error)
-        })
+          console.log(error);
+        });
     },
     // 添加商品 ruleForm1
     NewGoods () {
-      console.log(this.ruleForm.specName)
+      console.log(this.ruleForm.specName);
       this.$confirm('确认提交吗？', '提示', {}).then(() => {
-        console.log(this.ruleForm1)
+        console.log(this.ruleForm1);
         // 拷贝
-        this.ruleForm.requestId = Date.now()
-        let param = this.ruleForm
+        this.ruleForm.requestId = Date.now();
+        let param = this.ruleForm;
         api
           .tianjianwup(param)
-          .then(res => {
-            this.ruleForm1.productId = res.data.data.id
-            this.specification.productId = res.data.data.id
-            this.form.productId = res.data.data.id
-            console.log('返回商品ID', this.specification)
+          .then((res) => {
+            this.ruleForm1.productId = res.data.data.id;
+            this.specification.productId = res.data.data.id;
+            this.form.productId = res.data.data.id;
+            console.log('返回商品ID', this.specification);
 
             this.$message({
               message: '恭喜你，添加成功',
-              type: 'success'
-            })
-            this.judgment = '1'
-          })
-          .catch(err => {
-            console.log(err)
-          })
-      })
+              type: 'success',
+            });
+            this.judgment = '1';
+          });
+
+      });
     },
     clickdelete2 () {
-      this.specificationForm2.specValue = ''
+      this.specificationForm2.specValue = '';
     },
     clickdelete () {
-      this.ruleForm1.specValue = ''
+      this.ruleForm1.specValue = '';
     },
     onRemove (file) {},
     imgPreview (file) {
-      let fileName = file.name
-      let regex = /(.jpg|.jpeg|.gif|.png|.bmp)$/
+      let fileName = file.name;
+      let regex = /(.jpg|.jpeg|.gif|.png|.bmp)$/;
       if (regex.test(fileName.toLowerCase())) {
-        this.ruleForm.fileInfo = URL.createObjectURL(file.raw)
-        this.ruleForm1.fileInfo1 = URL.createObjectURL(file.raw)
-        console.log(file.raw)
-        console.log(this.ruleForm.fileInfo)
+        this.ruleForm.fileInfo = URL.createObjectURL(file.raw);
+        this.ruleForm1.fileInfo1 = URL.createObjectURL(file.raw);
+        console.log(file.raw);
+        console.log(this.ruleForm.fileInfo);
         // this.uploadFile(file)
       } else {
-        this.$message.error('请选择图片文件')
+        this.$message.error('请选择图片文件');
       }
     },
     scope (scope) {
@@ -624,144 +610,144 @@ export default {
     change (label) {
       // console.log(label)
       // console.log(11111111)
-      this.ruleForm1.claim = this.radiol
+      this.ruleForm1.claim = this.radiol;
     },
     // 获取核销员
     async verifier1 () {
       api
         .verifier()
-        .then(res => {
-          console.log(res)
-          this.verifier = res.data.data.list
-          console.log(this.verifier)
+        .then((res) => {
+          console.log(res);
+          this.verifier = res.data.data.list;
+          console.log(this.verifier);
         })
-        .catch(function (err) {
-          console.log(err)
-        })
+        ['catch'](function (err) {
+          console.log(err);
+        });
     },
     // 添加图片
 
     // 添加颜色事件
     submit () {
       // console.log(this.AddColor)
-      this.ruleForm1.specValue.push(this.AddColor)
-      this.tianjiayanse = this.AddColor
+      this.ruleForm1.specValue.push(this.AddColor);
+      this.tianjiayanse = this.AddColor;
       // this.AddColor = ''
     },
     // 添加尺寸事件
     submit1 () {
       // console.log(this.AddColor)
-      this.ruleForm.specName.push(this.AddSize)
-      this.tianjiachicun = this.AddSize
-      this.AddSize = ''
+      this.ruleForm.specName.push(this.AddSize);
+      this.tianjiachicun = this.AddSize;
+      this.AddSize = '';
     },
     // 图片列表移除图片时的钩子
     handleRemove (file, fileList) {
       // console.log(file, fileList)
     },
     success (err, file, fileList) {
-      console.log(err)
+      console.log(err);
     },
     // 图片上传前事件
     handleBeforeUpload (file) {
-      console.log(22222)
-      this.file = file // 需要传给后台的file文件
-      const reader = new FileReader()
-      reader.readAsDataURL(file)
+      console.log(22222);
+      this.file = file; // 需要传给后台的file文件
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
       reader.onload = () => {
-        const _base64 = reader.result
-        this.imgUrl = _base64 // 将_base64赋值给图片的src，实现图片预览
-      }
-      return false // 阻止图片继续上传，使得form表单提交时统一上传
+        const _base64 = reader.result;
+        this.imgUrl = _base64; // 将_base64赋值给图片的src，实现图片预览
+      };
+      return false; // 阻止图片继续上传，使得form表单提交时统一上传
     },
     // // 点击图片列表中的放大
     handlePictureCardPreview (file) {
-      console.log(1111111)
-      this.dialogImageUrl = file.url
-      this.dialogVisible = true
+      console.log(1111111);
+      this.dialogImageUrl = file.url;
+      this.dialogVisible = true;
     },
     // handleDownload (file) {
     //   console.log(file)
     // },
     // 标签点击按钮
     handleClose (tag) {
-      this.ruleForm1.specValue.splice(this.ruleForm1.specValue.indexOf(tag))
+      this.ruleForm1.specValue.splice(this.ruleForm1.specValue.indexOf(tag));
     },
     // 标签点击按钮
     handleClose1 (tag) {
       this.specificationForm2.specValue.splice(
-        this.specificationForm2.specValue.indexOf(tag)
-      )
+        this.specificationForm2.specValue.indexOf(tag),
+      );
     },
     // 获取类目
     async getcategory () {
       api
         .category()
-        .then(res => {
-          this.leiMu = res.data.data
+        .then((res) => {
+          this.leiMu = res.data.data;
           // this.leimu.levelId = res.data.length
         })
-        .catch(function (err) {
-          console.log(err)
-        })
+        ['catch'](function (err) {
+          console.log(err);
+        });
     },
     // 二级 下拉触发事件
     twocategshijan (e) {
       // console.log(e)
-      this.ruleForm.categoryId = e
-      this.ruleForm1.categoryId = e
+      this.ruleForm.categoryId = e;
+      this.ruleForm1.categoryId = e;
       // this.$http
       //   .get('/cat/product/category?parentCategoryId=' + e)
       api
         .categoryTwo(e)
-        .then(res => {
-          this.erjimulu = res.data.data
+        .then((res) => {
+          this.erjimulu = res.data.data;
           // console.log('类目', this.onecatalogues)
         })
-        .catch(function (error) {
+        ['catch'](function (error) {
           // handle error
-          console.log(error)
-        })
+          console.log(error);
+        });
     },
     // 三级 下拉触发事件 threecateg
     threecategshijan (e) {
-      this.ruleForm.categoryId = e
-      this.ruleForm1.categoryId = e
+      this.ruleForm.categoryId = e;
+      this.ruleForm1.categoryId = e;
       // console.log(e)
       // this.$http
       //   .get('/cat/product/category?parentCategoryId=' + e)
       api
         .categoryTwo(e)
-        .then(res => {
-          this.tiwoCatalogues = res.data.data
+        .then((res) => {
+          this.tiwoCatalogues = res.data.data;
           // console.log('类目', this.onecatalogues)
         })
-        .catch(function (error) {
+        ['catch'](function (error) {
           // handle error
-          console.log(error)
-        })
+          console.log(error);
+        });
     },
     threecateg (e) {
-      this.ruleForm.categoryId = e
-      this.ruleForm1.categoryId = e
+      this.ruleForm.categoryId = e;
+      this.ruleForm1.categoryId = e;
       // console.log(e)
       // this.$http
       //   .get('/cat/product/category?parentCategoryId=' + e)
       api
         .categoryTwo(e)
-        .then(res => {
-          this.threecategs = res.data.data
+        .then((res) => {
+          this.threecategs = res.data.data;
           // console.log('类目', this.onecatalogues)
         })
-        .catch(function (error) {
+        ['catch'](function (error) {
           // handle error
-          console.log(error)
-        })
+          console.log(error);
+        });
     },
     // 下拉 事件 核销员
     pullverifier (e) {
       // console.log(e)
-      this.ruleForm1.cancelId = e
+      this.ruleForm1.cancelId = e;
     },
     // 添加物品 goodsId
     async submitForm () {
@@ -769,74 +755,74 @@ export default {
         this.$notify({
           title: '提醒',
           message: '请先加商品',
-          duration: 0
-        })
-        return
+          duration: 0,
+        });
+        return;
       }
       // this.ruleForm1.specValue.push(this.specificationForm2.specValue)
-      this.$refs.ruleForm.validate(valid => {
+      this.$refs.ruleForm.validate((valid) => {
         if (valid) {
           this.$confirm('确认提交吗？', '提示', {}).then(() => {
-            console.log(this.ruleForm)
+            console.log(this.ruleForm);
             // 拷贝
-            this.ruleForm.requestId = Date.now()
-            let param = this.ruleForm1
-            api.addProduct(param).then(res => {
+            this.ruleForm.requestId = Date.now();
+            let param = this.ruleForm1;
+            api.addProduct(param).then((res) => {
               // this.$router.push({ name: 'commodity' })
-              this.specGoods.goodsId = res.data.data
-              this.form1.goodsId = res.data.data
+              this.specGoods.goodsId = res.data.data;
+              this.form1.goodsId = res.data.data;
               // 添加价格需要保存ID
-              this.specificationForm.hfGoodsId = res.data.data
-              console.log(res.data.data)
+              this.specificationForm.hfGoodsId = res.data.data;
+              console.log(res.data.data);
               this.$message({
                 message: '恭喜你，添加成功',
-                type: 'success'
-              })
-            })
-          })
+                type: 'success',
+              });
+            });
+          });
         }
-      })
+      });
     },
     conver: function (s) {
-      return s < 10 ? '0' + s : s
+      return s < 10 ? '0' + s : s;
     },
     // 当前时间
     time () {
-      var myDate = new Date()
+      var myDate = new Date();
 
       // 获取当前年
-      var year = myDate.getFullYear()
+      var year = myDate.getFullYear();
 
       // 获取当前月
-      var month = myDate.getMonth() + 1
+      var month = myDate.getMonth() + 1;
       // 获取当前日
-      var date = myDate.getDate()
-      var h = myDate.getHours() // 获取当前小时数(0-23)
-      var m = myDate.getMinutes() // 获取当前分钟数(0-59)
-      var s = myDate.getSeconds()
+      var date = myDate.getDate();
+      var h = myDate.getHours(); // 获取当前小时数(0-23)
+      var m = myDate.getMinutes(); // 获取当前分钟数(0-59)
+      var s = myDate.getSeconds();
       // 获取当前时间
 
-      var now = year + '-' + month + '-' + date + ' ' + h + ':' + m + ':' + s
-      this.ruleForm.timestamp = now
+      var now = year + '-' + month + '-' + date + ' ' + h + ':' + m + ':' + s;
+      this.ruleForm.timestamp = now;
       // 发起请求的随机数, 用来判断请求是否重复
-      this.ruleForm.requestId = Date.now()
+      this.ruleForm.requestId = Date.now();
       // console.log(this.timestamp)
 
       // specificationForm里的随机数和时间
-      this.specificationForm.timestamp = now
+      this.specificationForm.timestamp = now;
     },
     // 添加批量按钮
     resetForm (formName) {
       //  清空form表单
-      this.$refs[formName].resetFields()
+      this.$refs[formName].resetFields();
     },
     changeNum (row) {
-      this.editable[row] = true
-      this.$set(this.editable, row, true)
-    }
+      this.editable[row] = true;
+      this.$set(this.editable, row, true);
+    },
   },
-  mounted () {}
-}
+  mounted () {},
+};
 </script>
 
 <style scoped lang="less">

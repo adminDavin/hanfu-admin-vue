@@ -163,8 +163,8 @@
 </template>
 
 <script>
-import api from '@/api/commodity_api.js'
-import qs from 'qs'
+import api from '@/api/commodity_api.js';
+import qs from 'qs';
 export default {
   data () {
     return {
@@ -175,171 +175,167 @@ export default {
       // 查询绑定的值
       inquire: {
         goodsName: '', // 商品名称
-        productCategoryName: '' // 类目名称
+        productCategoryName: '', // 类目名称
       },
       pagesize: 12,
       currpage: 1,
       // 物品列表
       tableData: [],
-      addLoading: false
-    }
+      addLoading: false,
+    };
   },
   created () {
-    this.getcoommo()
+    this.getcoommo();
   },
   methods: {
     // 获取商品列表
     async getcoommo () {
       api
         .getProductList()
-        .then(res => {
-          this.tableData = res.data.data.list
-          this.queryGoods = res.data.data.endRow
+        .then((res) => {
+          this.tableData = res.data.data.list;
+          this.queryGoods = res.data.data.endRow;
         })
-        .catch(function (err) {
-          console.log(err)
-        })
+        ['catch'](function (err) {
+          console.log(err);
+        });
     },
     // 查询
     seeAbout () {
       api
         .queryList(this.inquire)
-        .then(res => {
-          this.tableData = res.data.data
+        .then((res) => {
+          this.tableData = res.data.data;
         })
-        .catch(error => {
-          console.log(error)
-          this.$message(error + '失败')
-        })
+        ['catch']((error) => {
+          console.log(error);
+          this.$message(error + '失败');
+        });
     },
     // 重置
     sou: function () {
-      this.inquire.goodsName = ''
-      this.inquire.productCategoryName = ''
+      this.inquire.goodsName = '';
+      this.inquire.productCategoryName = '';
     },
     // 删除单个商品
     deletesingle: function (index, row) {
-      console.log(row)
-      console.log(index)
+      console.log(row);
+      console.log(index);
       this.$confirm('确认删除吗？', '提示', {}).then(async () => {
         api
           .deleteGood(row.id)
-          .then(res => {
-            console.log(res)
-            this.tableData.splice(index, 1)
+          .then((res) => {
+            console.log(res);
+            this.tableData.splice(index, 1);
             // this.quGoods()
           })
-          .catch(err => {
-            console.log(err)
-          })
-      })
+          ['catch']((err) => {
+            console.log(err);
+          });
+      });
     },
     // 编辑商品
     biangui: function (row) {
-      var arr = JSON.stringify(row)
+      var arr = JSON.stringify(row);
       this.$router.push({
         path: '/hfcompile',
         query: {
-          row: arr
-        }
-      })
+          row: arr,
+        },
+      });
     },
     // 上下架
     upFrame (row) {
-      console.log(row.frames)
-      console.log(1111111)
+      console.log(row.frames);
+      console.log(1111111);
       if (row.isDeleted === 0) {
         this.$http
           .get('/api/api/product/product/racking', {
             params: {
               frames: 3,
-              productId: row.id
+              productId: row.id,
             },
-            paramsSerializer: params => {
-              return qs.stringify(params, { indices: false })
-            }
+            paramsSerializer: (params) => qs.stringify(params, { indices: false }),
           })
-          .then(res => {
-            this.getcoommo()
+          .then((res) => {
+            this.getcoommo();
             this.$message({
               showClose: true,
               message: '恭喜你，下架成功',
-              type: 'success'
-            })
+              type: 'success',
+            });
           })
-          .catch(error => {
-            this.$message(error + '下架失败')
-          })
+          ['catch']((error) => {
+            this.$message(error + '下架失败');
+          });
       } else {
         this.$http
           .get('/api/api/product/product/racking', {
             params: {
               frames: 0,
-              productId: row.id
+              productId: row.id,
             },
-            paramsSerializer: params => {
-              return qs.stringify(params, { indices: false })
-            }
+            paramsSerializer: (params) => qs.stringify(params, { indices: false }),
           })
-          .then(res => {
-            this.getcoommo()
+          .then((res) => {
+            this.getcoommo();
             this.$message({
               showClose: true,
               message: '恭喜你，上架成功',
-              type: 'success'
-            })
+              type: 'success',
+            });
           })
-          .catch(error => {
-            this.$message(error + '上架失败')
-          })
+          ['catch']((error) => {
+            this.$message(error + '上架失败');
+          });
       }
     },
     // 出售中
     qihuanchus () {
-      this.qihuans = '1'
+      this.qihuans = '1';
       api.selectFrames(0)
-        .then(res => {
-          this.tableData = res.data.data.list
-          this.onOffer = res.data.data.endRow
+        .then((res) => {
+          this.tableData = res.data.data.list;
+          this.onOffer = res.data.data.endRow;
         })
-        .catch(error => {
-          console.log(error)
-          this.$message(error + '失败')
-        })
+        ['catch']((error) => {
+          console.log(error);
+          this.$message(error + '失败');
+        });
     },
     // 库存切换
     qihuankuch () {
-      this.qihuans = '2'
+      this.qihuans = '2';
       api.selectFrames(3)
-        .then(res => {
-          this.tableData = res.data.data.list
-          this.StockQuantity = res.data.data.endRow
+        .then((res) => {
+          this.tableData = res.data.data.list;
+          this.StockQuantity = res.data.data.endRow;
         })
-        .catch(error => {
-          this.$message(error + '失败')
-        })
+        ['catch']((error) => {
+          this.$message(error + '失败');
+        });
     },
     handleSelect (key, keyPath) {
-      console.log(key, keyPath)
+      console.log(key, keyPath);
       if (key === '1') {
-        this.getcoommo()
+        this.getcoommo();
       } else if (key === '2') {
-        this.qihuanchus()
-        console.log('出售中')
+        this.qihuanchus();
+        console.log('出售中');
       } else if (key === '3') {
-        this.qihuankuch()
+        this.qihuankuch();
       }
     },
     handleSizeChange (val) {
       // console.log(`每页 ${val} 条`)
-      this.pagesize = val
+      this.pagesize = val;
     },
     handleCurrentChange (val) {
-      console.log(`当前页: ${val}`)
-      this.currpage = val
-    }
-  }
-}
+      console.log(`当前页: ${val}`);
+      this.currpage = val;
+    },
+  },
+};
 </script>
 
 <style lang="less" scoped>

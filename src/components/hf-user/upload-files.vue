@@ -4,7 +4,8 @@
     <el-upload v-model="form.files" ref="upload"
      class="upload-poster" :limit='4'
      accept=".jpg,.jpeg,.png,.gif,.bmp,.JPG,.JPEG,.GIF,.BMP"
-     action='' list-type="picture-card" :show-file-list="true"  :on-remove="onRemove" :on-change="imgPreview" :auto-upload="false">
+     action='' list-type="picture-card"
+			:show-file-list="true"  :on-remove="onRemove" :on-change="imgPreview" :auto-upload="false">
       <i class="el-icon-plus"></i>
       <el-dialog :visible.sync="dialogVisible">
         <img width="100%" :src="picUrl" alt="">

@@ -48,7 +48,8 @@ export default {
     },
     initGoodsFiles() {
       console.log(this.goods.id);
-      axios.get("/api/goods/pictures", {params: {goodsId: this.goods.id}}).then((response) => {
+      axios.get("/api/goods/pictures", 
+			{params: {goodsId: this.goods.id}}).then((response) => {
         if (response.status == 200 && response.data.status == 200) {
           let fileIds = response.data.data;
           // for (let fileId of fileIds) {            

@@ -1,7 +1,7 @@
-const CompressionWebpackPlugin = require('compression-webpack-plugin')
-const productionGzipExtensions = ['js', 'css']
-const webpack = require('webpack')
-const path = require('path')
+const CompressionWebpackPlugin = require('compression-webpack-plugin');
+const productionGzipExtensions = ['js', 'css'];
+const webpack = require('webpack');
+const path = require('path');
 
 module.exports = {
   // baseUrl从 Vue CLI 3.3 起已弃用，请使用publicPath
@@ -28,8 +28,8 @@ module.exports = {
   configureWebpack: {
     resolve: {
       alias: {
-        '@': path.resolve(__dirname, './src')
-      }
+        '@': path.resolve(__dirname, './src'),
+      },
     },
     plugins: [
       // Ignore all locale files of moment.js
@@ -39,15 +39,15 @@ module.exports = {
         algorithm: 'gzip',
         test: new RegExp('\\.(' + productionGzipExtensions.join('|') + ')$'),
         threshold: 10240,
-        minRatio: 0.8
+        minRatio: 0.8,
       }),
       new webpack.optimize.LimitChunkCountPlugin({
         maxChunks: 5,
-        minChunkSize: 100
-      })
-    ]
+        minChunkSize: 100,
+      }),
+    ],
   },
-  chainWebpack: config => {
+  chainWebpack: (config) => {
     config.optimization.splitChunks({
       chunks: 'all', // async表示抽取异步模块，all表示对所有模块生效，initial表示对同步模块生效
       cacheGroups: {
@@ -55,20 +55,20 @@ module.exports = {
           test: /[\\/]node_modules[\\/]/, // 指定是node_modules下的第三方包
           name: 'chunk-vendors',
           chunks: 'all',
-          priority: -10 // 抽取优先级
+          priority: -10, // 抽取优先级
         },
         // 抽离自定义工具库
         utilCommon: {
           name: 'chunk-common',
           minSize: 1024, // 将引用模块分离成新代码文件的最小体积
           minChunks: 2, // 表示将引用模块如不同文件引用了多少次，才能分离生成新chunk
-          priority: -20
-        }
-      }
-    })
+          priority: -20,
+        },
+      },
+    });
     config.optimization.runtimeChunk({
-      name: entryPoint => `manifest.${entryPoint.name}`
-    })
+      name: (entryPoint) => `manifest.${entryPoint.name}`,
+    });
   },
   // 所有 webpack-dev-server 的选项都支持。
   devServer: {
@@ -84,24 +84,24 @@ module.exports = {
         target: 'https://www.tjsichuang.cn:1443', // 远程服务器
         changeOrigin: true,
         pathRewrite: {
-          '^/api': '' // 去掉接口地址中的api字符串
-        }
+          '^/api': '', // 去掉接口地址中的api字符串
+        },
       },
       '/foo': {
         // target: 'http://192.168.1.175:9911', // 本地模拟数据服务器
         target: 'https://www.tjsichuang.cn:1443', // 远程服务器
         changeOrigin: true,
         pathRewrite: {
-          '^/foo': '' // 去掉接口地址中的foo字符串
-        }
+          '^/foo': '', // 去掉接口地址中的foo字符串
+        },
       },
       '/jietu': {
         // target: 'http://192.168.1.175:9910', // 本地模拟数据服务器
         target: 'https://www.tjsichuang.cn:1443', // 远程服务器
         changeOrigin: true,
         pathRewrite: {
-          '^/jietu': '' // 去掉接口地址中的foo字符串
-        }
+          '^/jietu': '', // 去掉接口地址中的foo字符串
+        },
       },
       '/log': {
         // target: 'http://192.168.1.196:8082', // 本地模拟数据服务器 小方
@@ -109,33 +109,33 @@ module.exports = {
         target: 'https://www.tjsichuang.cn:1443', // 远程服务器
         changeOrigin: true,
         pathRewrite: {
-          '^/log': '' // 去掉接口地址中的foo字符串
-        }
+          '^/log': '', // 去掉接口地址中的foo字符串
+        },
       },
       '/qui': {
         // target: 'http://192.168.1.104:9097', // 本地模拟数据服务器
         target: 'https://www.tjsichuang.cn:1443', // 远程服务器
         changeOrigin: true,
         pathRewrite: {
-          '^/qui': '' // 去掉接口地址中的foo字符串
-        }
+          '^/qui': '', // 去掉接口地址中的foo字符串
+        },
       },
       '/ver': {
         // target: 'http://192.168.1.125:9901', // 本地模拟数据服务器
         target: 'https://www.tjsichuang.cn:1443', // 远程服务器
         changeOrigin: true,
         pathRewrite: {
-          '^/ver': '' // 去掉接口地址中的foo字符串
-        }
+          '^/ver': '', // 去掉接口地址中的foo字符串
+        },
       },
       '/cat': {
         // target: 'http://192.168.1.101:9095', // 小方类目
         target: 'https://www.tjsichuang.cn:1443', // 远程
         changeOrigin: true,
         pathRewrite: {
-          '^/cat': '' // 去掉接口地址中的foo字符串
-        }
-      }
-    }
-  }
-}
+          '^/cat': '', // 去掉接口地址中的foo字符串
+        },
+      },
+    },
+  },
+};

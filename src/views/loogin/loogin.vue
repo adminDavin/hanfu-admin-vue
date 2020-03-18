@@ -52,16 +52,16 @@
 </template>
 
 <script>
-import store from '@/store'
+import store from '@/store';
 export default {
   data () {
     // 定义一个校验函数
     const checkMobile = (rule, value, callback) => {
       if (!/^1[3-9]\d{9}$/.test(value)) {
-        return callback(new Error('手机号不合法'))
+        return callback(new Error('手机号不合法'));
       }
-      callback()
-    }
+      callback();
+    };
     return {
       //  记住密码 单选框
       radio: '1',
@@ -70,20 +70,20 @@ export default {
       loginForm: {
         authKey: '18830709006',
         authType: '2',
-        code: ''
+        code: '',
       },
       // 表单校验规则对象
       loginRules: {
         authKey: [
           { required: true, message: '请输入手机号', trigger: 'blur' },
-          { validator: checkMobile, trigger: 'change' }
+          { validator: checkMobile, trigger: 'change' },
         ],
         passwd: [
           { required: true, message: '请输入验证码', trigger: 'blur' },
-          { len: 4, message: '验证码长度4位', trigger: 'blur' }
-        ]
-      }
-    }
+          { len: 4, message: '验证码长度4位', trigger: 'blur' },
+        ],
+      },
+    };
   },
   created () {
     // console.log(this.$refs.loginForm)
@@ -92,49 +92,49 @@ export default {
     // 登录
     login () {
       // 调用 validate 对整体表进行校验
-      this.$refs.loginForm.validate(async valid => {
-        console.log(this.loginRules.authKey)
+      this.$refs.loginForm.validate(async (valid) => {
+        console.log(this.loginRules.authKey);
         if (valid) {
           try {
             // eslint-disable-next-line no-unused-vars
             await this.$http.get(`/api/api/user/user/login?authKey=${this.loginForm.authKey}&authType=${this.loginForm.authType}&passwd=${this.loginForm.code}`)
-              .then(res => {
+              .then((res) => {
                 if (res.data.data === '1') {
-                  let data = { token: 'a1b2c3d4e4fg' }
-                  store.setUser(data)
-                  this.$router.push('/')
+                  let data = { token: 'a1b2c3d4e4fg' };
+                  store.setUser(data);
+                  this.$router.push('/');
                 }
-              })
+              });
           } catch (e) {
             // 进行错误提示即可
-            this.$message.error('手机号或验证码错误1')
+            this.$message.error('手机号或验证码错误1');
           }
         }
-      })
+      });
     },
     // 发送验证码
     Sendlogin () {
       // 调用 validate 对整体表进行校验
-      this.$refs.loginForm.validate(async valid => {
-        console.log(1)
+      this.$refs.loginForm.validate(async (valid) => {
+        console.log(1);
         if (valid) {
-          console.log(valid)
+          console.log(valid);
           try {
             // eslint-disable-next-line no-unused-vars
-            await this.$http.get('/api/api/user/user/code?phone=' + this.loginForm.authKey).then(res => {
-              this.loginForm.code = res.data.data
-            })
+            await this.$http.get('/api/api/user/user/code?phone=' + this.loginForm.authKey).then((res) => {
+              this.loginForm.code = res.data.data;
+            });
             // this.$router.push('/')
           } catch (e) {
             // 进行错误提示即可
-            this.$message.error('手机号或验证码错误1')
-            console.log(e)
+            this.$message.error('手机号或验证码错误1');
+            console.log(e);
           }
         }
-      })
-    }
-  }
-}
+      });
+    },
+  },
+};
 </script>
 
 <style scoped lang='less'>

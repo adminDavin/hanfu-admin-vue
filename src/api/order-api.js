@@ -133,7 +133,6 @@ function print (id) {
   }
   return Axios.get('/order/order/print', params)
 }
-
 export default {
   orderDetail: orderDetail,
   checkOrderList: checkOrderList,

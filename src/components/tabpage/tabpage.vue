@@ -29,17 +29,17 @@
 <script>
 import vSearchinput from '../searchinput/searchinput.vue';
 export default {
-    name: 'tabpage',
-    components: {
-        vSearchinput
-    },
-    data() {
-        return {
+  name: 'tabpage',
+  components: {
+    vSearchinput,
+  },
+  data() {
+    return {
 
-        }
-    },
-    methods: {
+    };
+  },
+  methods: {
 
-    }
-}
+  },
+};
 </script>

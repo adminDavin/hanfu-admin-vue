@@ -19,3 +19,8 @@ yarn-error.log*
 *.njsproj
 *.sln
 *.sw?
+my-app/*
+nohup.*
+package-lock.json
+start.sh
+yarn.lock

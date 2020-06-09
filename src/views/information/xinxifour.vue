@@ -396,15 +396,15 @@ export default {
     return {
       tabPosition: 'left',
       circleUrl:
-        'https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png'
-    }
+        'https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png',
+    };
   },
   computed: {},
   watch: {},
   created () {},
   methods: {},
-  mounted () {}
-}
+  mounted () {},
+};
 </script>
 
 <style scoped lang="less">

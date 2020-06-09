@@ -1,5 +1,6 @@
+/* eslint-disable no-magic-numbers */
 /* eslint-disable require-jsdoc */
-import Axios from 'axios';
+import Axios from './index';
 // =============================================商品模块
 
 function getGoodsByProductId(productId) {
@@ -22,14 +23,29 @@ function deleteById(goodsId) {
 function goodsSpecifies(goodsId) {
   return Axios.get('/api/api/product/goods/specifies?goodsId=' + goodsId);
 }
+// 查询仓库
+function listWareHouse(goodsId) {
+  return Axios.get('/api/api/product/wareHouse/listWareHouse?bossId=1');
+}
+// 物品图片
+function picturesAll(goodsId) {
+  return Axios.get('/api/api/product/goods/picturesAll?goodsId=' + goodsId);
+}
+// 删除物品图片
+function deleteGoodsFile(fileId) {
+  return Axios.get('/api/api/product/goods/deleteGoodsFile?fileId=' + fileId);
+}
 // 添加物品
 function addProduct(params) {
   let fd = new FormData();
   fd.append('productId', params.productId);
-  fd.append('cancelId', params.cancelId);
-  fd.append('claim', params.claim);
+  // fd.append('cancelId', params.cancelId);
+  // fd.append('claim', params.claim);
   // fd.append('frames', params.frames);
   fd.append('goodName', params.goodName);
+  if (params.stoneId !== '') {
+    fd.append('stoneId', params.stoneId);
+  }
   fd.append('goodsDesc', params.goodsDesc);
   fd.append('requestId', params.requestId);
   fd.append('token', params.token);
@@ -42,22 +58,32 @@ function addProduct(params) {
 function setPrice (params) {
   let fd = new FormData();
   fd.append('hfGoodsId', params.hfGoodsId);
-  fd.append('sellPrice', params.sellPrice);
+  fd.append('sellPrice', params.sellPrice * 100);
   fd.append('quantity', params.quantity);
-  fd.append('linePrice', params.linePrice);
+  fd.append('linePrice', params.linePrice * 100);
+  fd.append('wareHouseId', params.wareHouseId);
   return Axios.post('/api/api/product/goods/setPrice', fd);
 }
 // 编辑物品
 function updateGood (params) {
   let fd = new FormData();
-  fd.append('brandName', params.brandName);
+  if (params.brandName !== null) {
+    fd.append('brandName', params.brandName);
+  }
   fd.append('goodName', params.goodsName);
   fd.append('goodsDesc', params.goodsDesc);
   fd.append('sellPrice', params.sellPrice);
   fd.append('id', params.goodsId);
+  // if (params.warehouseId !== '') {
+  //   fd.append('warehouseId', params.warehouseId);
+  // }
+  if (params.quantity !== '') {
+    fd.append('quantity', params.quantity);
+  }
   // fd.append('linePrice', params.linePrice); 划线价
   return Axios.post('/api/api/product/goods/updategood', fd);
 }
+
 // 添加物品规格值
 function additionSpecs (params) {
   let fd = new FormData();
@@ -91,4 +117,7 @@ export default {
   setPrice: setPrice,
   goodsSpecifies: goodsSpecifies,
   goodsSpecUpdate: goodsSpecUpdate,
+  listWareHouse: listWareHouse,
+  picturesAll: picturesAll,
+  deleteGoodsFile: deleteGoodsFile,
 };

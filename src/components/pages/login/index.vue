@@ -1,3 +1,4 @@
+
 <template>
   <div class="container">
     <!-- 卡片 element-ui 组件 -->
@@ -16,24 +17,49 @@
             <p style="margin:4px 0">Welcome back</p>
           </div>
           <el-form ref="loginForm" :model="loginForm" :rules="loginRules" status-icon>
-            <el-form-item prop="mobile">
-              <el-input
-                v-model="loginForm.authKey"
-                placeholder="请输入手机号"
-                style="width:284px;margin-right:10px"
-              ></el-input>
-            </el-form-item>
-            <el-form-item style="width:300px; text-align:left;" prop="code">
-              <el-input
-                v-model="loginForm.code"
-                placeholder="请输入验证码"
-                style="width:100px;margin-right:10px"
-              ></el-input>
-              <el-button @click="Sendlogin()">发送验证码</el-button>
-            </el-form-item>
-            <el-form-item>
-              <el-button @click="login()" type="info" style="width:284px;">登 录</el-button>
-            </el-form-item>
+            <el-row :gutter="20">
+              <el-col :span="12" :offset="6">
+                <el-form-item prop="authKey">
+                  <el-input
+                    v-model="loginForm.authKey"
+                    placeholder="请输入手机号"
+                    style="width:284px;margin-right:10px"
+                  ></el-input>
+                </el-form-item>
+              </el-col>
+            </el-row>
+
+            <el-row :gutter="20">
+              <el-col :span="12" :offset="6">
+                <el-form-item style="width:300px; text-align:left;" prop="code">
+                  <el-input
+                    v-model="loginForm.code"
+                    placeholder="请输入验证码"
+                    style="width:100px;margin-right:10px"
+                  ></el-input>
+                  <el-button :disabled="disabled" @click="Sendlogin()">{{btntxt}}</el-button>
+                </el-form-item>
+              </el-col>
+            </el-row>
+
+            <el-row style="margin-bottom:10px">
+              <el-col :span="8">
+                <el-radio v-model="loginForm.type" label="boss">商家管理身份</el-radio>
+              </el-col>
+              <el-col :span="8">
+                <el-radio v-model="loginForm.type" label="stone">店铺管理身</el-radio>
+              </el-col>
+              <el-col :span="8">
+                <el-radio v-model="loginForm.type" label="warehouse">仓库管理身</el-radio>
+              </el-col>
+            </el-row>
+            <el-row :gutter="20">
+              <el-col :span="12" :offset="6">
+                <el-form-item>
+                  <el-button @click="login()" type="info" style="width:284px;">登 录</el-button>
+                </el-form-item>
+              </el-col>
+            </el-row>
           </el-form>
         </div>
         <div class="div-img">
@@ -43,116 +69,247 @@
         </div>
       </el-card>
     </div>
+
+    <el-dialog title :visible.sync="dialogFormVisible">
+      <el-card shadow="never" class="box-card">
+        <div slot="header" class="clearfix">
+          <span v-if="dataList.identity=='boss'">管理员</span>
+          <span v-if="dataList.identity=='stone'">选择店铺</span>
+          <span v-if="dataList.identity=='warehouse'">选择仓库</span>
+        </div>
+
+        <el-form :model="dataList">
+          <!-- boss -->
+          <el-form-item v-if="dataList.identity=='boss'" label>
+            <el-select v-model="form.merId" placeholder="请选择boss">
+              <el-option
+                v-for="item in dataList.List"
+                :key="item.id"
+                :label="item.name"
+                :value="item.id"
+              ></el-option>
+            </el-select>
+          </el-form-item>
+          <!-- 店铺 -->
+          <el-form-item v-if="dataList.identity=='stone'" label>
+            <el-select v-model="form.merId" placeholder="请选择店铺">
+              <el-option
+                v-for="item in dataList.List"
+                :key="item.id"
+                :label="item.hfName"
+                :value="item.id"
+              ></el-option>
+            </el-select>
+          </el-form-item>
+          <!-- 仓库 -->
+          <el-form-item v-if="dataList.identity=='warehouse'" label>
+            <el-select v-model="form.merId" placeholder="请选择仓库">
+              <el-option
+                v-for="item in dataList.List"
+                :key="item.id"
+                :label="item.name"
+                :value="item.id"
+              ></el-option>
+            </el-select>
+          </el-form-item>
+          <el-form-item>
+            <el-button @click="determine()" type="info" style="width:284px;">确 定</el-button>
+          </el-form-item>
+        </el-form>
+      </el-card>
+    </el-dialog>
   </div>
 </template>
 
 <script>
-import store from "@/store";
+import store from '@/store';
+import constants from '@/store/constants.js';
+import log from '@/service/login.js';
+import axios from 'axios';
 export default {
   data() {
     // 定义一个校验函数
     const checkMobile = (rule, value, callback) => {
       if (!/^1[3-9]\d{9}$/.test(value)) {
-        return callback(new Error("手机号不合法"));
+        return callback(new Error('手机号不合法'));
+      }
+      callback();
+    };
+    const validateCode = (rule, value, callback) => {
+      if (!/^[1-9]\d{3}$/.test(value)) {
+        return callback(new Error('验证码长度4位数'));
       }
       callback();
     };
     return {
+
+      dataList: '',
+      form: {
+        type: '',
+        merId: '',
+        userId: '',
+      },
+      dialogFormVisible: false,
+      timer: '',
+      disabled: false,
+      time: 0,
       //  记住密码 单选框
-      radio: "1",
-      squareUrl: "",
+      btntxt: '获取验证码',
+      radio: 'boss',
+      squareUrl: '',
       // 表单数据对象
       loginForm: {
-        authKey: "18830709006",
-        authType: "2",
-        code: ""
+        authKey: '17612219746',
+        authType: '2',
+        code: '',
+        type: '',
       },
       // 表单校验规则对象
       loginRules: {
         authKey: [
-          { required: true, message: "请输入手机号", trigger: "blur" },
-          { validator: checkMobile, trigger: "change" }
+          { required: true, message: '请输入手机号', trigger: 'change' },
+          { validator: checkMobile, trigger: 'change' },
         ],
-        passwd: [
-          { required: true, message: "请输入验证码", trigger: "blur" },
-          { len: 4, message: "验证码长度4位", trigger: "blur" }
-        ]
-      }
+        code: [
+          {
+            required: true,
+            message: '请输入验证码',
+            trigger: ['blur', 'change'],
+          },
+          { validator: validateCode, trigger: ['blur', 'change'] },
+        ],
+      },
     };
   },
   created() {
-    // console.log(this.$refs.loginForm)
+    this.dataList = store.getUser();
+    console.log(this.dataList);
   },
   methods: {
     // 登录
     login() {
       // 调用 validate 对整体表进行校验
-      this.$refs.loginForm.validate(async valid => {
+      this.$refs.loginForm.validate(async (valid) => {
         console.log(this.loginRules.authKey);
         if (valid) {
-          try {
-<<<<<<< HEAD
-            await this.$http
-              .post(
-                `/api/api/user/hf-auth/login?authKey=${this.loginForm.authKey}&authType=${this.loginForm.authType}&passwd=${this.loginForm.code}`
-              )
-              .then(res => {
-                console.log(res);
-                if (res.data.status == 200) {
-                  let data = { token: "a1b2c3d4e4fg" };
-=======
-            // eslint-disable-next-line no-unused-vars
-            // hf-auth/login /user/login
-            await this.$http.get(`/api/api/user/user/login?authKey=${this.loginForm.authKey}&authType=${this.loginForm.authType}&passwd=${this.loginForm.code}`)
-              .then((res) => {
-                console.log(res.data.status);
-                if (res.data.data === '1') {
-                  let data = { token: 'a1b2c3d4e4fg' };
->>>>>>> a20a074c67a7a62305455524cdbfffa3ed431b95
-                  store.setUser(data);
-                  window.sessionStorage.setItem(
-                    "userInfor",
-                    JSON.stringify(res.data.data)
-                  );
-                  // localStorage.setItem()
-                  this.$router.push("/");
-                }
-              });
-          } catch (e) {
-            // 进行错误提示即可
-            this.$message.error("手机号或验证码错误");
-          }
+          log.login(this.loginForm, (res) => {
+            // var re = res.headers.token;
+            console.log(res);
+            console.log(res.data.data.token);
+            if (res.data.data === '验证码不正确') {
+              this.$message.error('验证码输入错误');
+            }
+            // console.log(re);
+            if (res.data.status === constants.SUCCESS_CODE) {
+              this.dataList = res.data.data;
+              let data = res.data.data;
+              store.setUser(data);
+              window.sessionStorage.setItem(
+                'userInfor',
+                JSON.stringify(res.data.data),
+              );
+              // localStorage.setItem()
+              this.dialogFormVisible = true;
+              // this.$router.push('/');
+            } else {
+              this.$message.error('手机号或验证码错误');
+            }
+          });
+          // try {
+          //   await this.$http
+          //     .post(
+          //       `/api/api/user/hf-auth/login?authKey=${this.loginForm.authKey}&authType=${this.loginForm.authType}&passwd=${this.loginForm.code}`,
+          //     )
+          //     .then((res) => {
+          //       console.log(res);
+          //       if (res.data.status === constants.SUCCESS_CODE) {
+          //         let data = { token: 'a1b2c3d4e4fg' };
+          //         store.setUser(data);
+          //         window.sessionStorage.setItem(
+          //           'userInfor',
+          //           JSON.stringify(res.data.data),
+          //         );
+          //         // localStorage.setItem()
+          //         this.$router.push('/');
+          //       }
+          //     });
+          // } catch (e) {
+          //   // 进行错误提示即可
+          //   this.$message.error('手机号或验证码错误');
+          // }
         }
       });
     },
     // 发送验证码
     Sendlogin() {
       // 调用 validate 对整体表进行校验
-      this.$refs.loginForm.validate(async valid => {
+      // if (!/^1[3-9]\d{9}$/.test(value)) {
+      //   return callback(new Error('手机号不合法'));
+      // }
+      console.log(this.loginForm.authKey === /^1[3-9]\d{9}$/);
+      let patrn = /^1[3-9]\d{9}$/;
+      if (patrn.exec(this.loginForm.authKey)) {
+        // eslint-disable-next-line no-unused-vars
+        let fd = new FormData();
+        fd.append('phone', this.loginForm.authKey);
+        fd.append('type', 'login');
+
+        axios
+          .post('/api/api/user/user/code', fd)
+          .then((res) => {
+            this.loginForm.code = res.data.data;
+            this.time = 60;
+            this.disabled = true;
+            this.validateBtn();
+          });
+        // this.$router.push('/');
+      } else {
+        return false;
+      }
+    },
+    validateBtn() {
+      // 倒计时
+      let time = 60;
+      this.timer = setInterval(() => {
         console.log(1);
-        if (valid) {
-          console.log(valid);
-          try {
-            // eslint-disable-next-line no-unused-vars
-            await this.$http
-              .get("/api/api/user/user/code?phone=" + this.loginForm.authKey)
-              .then(res => {
-                this.loginForm.code = res.data.data;
-              });
-            // this.$router.push('/')
-          } catch (e) {
-            // 进行错误提示即可
-            this.$message.error("手机号或验证码错误1");
-            console.log(e);
-          }
+        if (time === 0) {
+          clearInterval(this.timer);
+          this.disabled = false;
+          this.btntxt = '获取验证码';
+        } else {
+          this.btntxt = time + '秒后重试';
+          this.disabled = true;
+          time--;
         }
+        // eslint-disable-next-line no-magic-numbers
+      }, 1000);
+    },
+    determine() {
+      this.form.type = this.dataList.identity;
+      this.form.userId = this.dataList.id;
+      log.token(this.form, (res) => {
+        console.log(res);
+        let data = store.getUser();
+        data.token = res.data.data.token;
+        data.modelCode = res.data.data.model;
+        store.setUser(data);
+        this.$router.push('/');
       });
+    },
+  },
+  destroyed() {
+    if (this.timer) {
+      // 如果定时器在运行则关闭
+      clearInterval(this.timer);
     }
-  }
+  },
 };
 </script>
 
 <style scoped lang='less'>
+.el-col-offset-6 {
+  margin-left: 0;
+}
 .container {
   padding: 0;
   margin: 0;

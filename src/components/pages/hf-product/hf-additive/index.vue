@@ -234,6 +234,7 @@
 
 <script>
 import api from '@/api/commodity_api.js';
+import store from '@/store';
 // import { log } from 'util'
 export default {
   data () {
@@ -410,6 +411,7 @@ export default {
     });
     this.commoditytable = lists;
     this.change();
+    this.ruleForm.bossId = store.getUser().BSid;
   },
   methods: {
     // 详情

@@ -9,12 +9,12 @@ import orderCenter from './hf-orderCenter.vue';
 export default {
   name: 'store',
   components: {
-    orderCenter
+    orderCenter,
   },
   data() {
     return {
-      collapse: false
-    }
-  }
-}
+      collapse: false,
+    };
+  },
+};
 </script>

@@ -7,8 +7,7 @@ module.exports = {
   // baseUrl从 Vue CLI 3.3 起已弃用，请使用publicPath
   // 默认情况下，Vue CLI 会假设你的应用是被部署在一个域名的根路径上，例如 https://www.my-app.com/。
   // 如果应用被部署在一个子路径上，你就需要用这个选项指定这个子路径。例如，如果你的应用被部署在 https://www.my-app.com/my-app/，则设置 publicPath 为 /my-app/。
-  publicPath:
-      process.env.NODE_ENV === 'production' ? '/production-sub-path/' : '/',
+  publicPath: process.env.NODE_ENV === 'production' ? '/production-sub-path/' : '/',
   // 当运行 vue-cli-service build 时生成的生产环境构建文件的目录。
   // 注意目标目录在构建之前会被清除 (构建时传入 --no-clean 可关闭该行为)。
   // 放置生成的静态资源 (js、css、img、fonts) 的目录(相对于outputDir目录)。
@@ -72,8 +71,9 @@ module.exports = {
   },
   // 所有 webpack-dev-server 的选项都支持。
   devServer: {
-    host: '172.26.16.96',
-    port: 3001, // 端口号
+    // host: '172.26.16.96',
+    host: 'localhost',
+    port: 8080, // 端口号
     https: false,
     open: true, // 配置自动启动浏览器
 
@@ -85,55 +85,6 @@ module.exports = {
         changeOrigin: true,
         pathRewrite: {
           '^/api': '', // 去掉接口地址中的api字符串
-        },
-      },
-      '/foo': {
-        // target: 'http://192.168.1.175:9911', // 本地模拟数据服务器
-        target: 'https://www.tjsichuang.cn:1443', // 远程服务器
-        changeOrigin: true,
-        pathRewrite: {
-          '^/foo': '', // 去掉接口地址中的foo字符串
-        },
-      },
-      '/jietu': {
-        // target: 'http://192.168.1.175:9910', // 本地模拟数据服务器
-        target: 'https://www.tjsichuang.cn:1443', // 远程服务器
-        changeOrigin: true,
-        pathRewrite: {
-          '^/jietu': '', // 去掉接口地址中的foo字符串
-        },
-      },
-      '/log': {
-        // target: 'http://192.168.1.196:8082', // 本地模拟数据服务器 小方
-        // target: 'http://192.168.1.104:8082', // 本地模拟数据服务器 小朋
-        target: 'https://www.tjsichuang.cn:1443', // 远程服务器
-        changeOrigin: true,
-        pathRewrite: {
-          '^/log': '', // 去掉接口地址中的foo字符串
-        },
-      },
-      '/qui': {
-        // target: 'http://192.168.1.104:9097', // 本地模拟数据服务器
-        target: 'https://www.tjsichuang.cn:1443', // 远程服务器
-        changeOrigin: true,
-        pathRewrite: {
-          '^/qui': '', // 去掉接口地址中的foo字符串
-        },
-      },
-      '/ver': {
-        // target: 'http://192.168.1.125:9901', // 本地模拟数据服务器
-        target: 'https://www.tjsichuang.cn:1443', // 远程服务器
-        changeOrigin: true,
-        pathRewrite: {
-          '^/ver': '', // 去掉接口地址中的foo字符串
-        },
-      },
-      '/cat': {
-        // target: 'http://192.168.1.101:9095', // 小方类目
-        target: 'https://www.tjsichuang.cn:1443', // 远程
-        changeOrigin: true,
-        pathRewrite: {
-          '^/cat': '', // 去掉接口地址中的foo字符串
         },
       },
     },

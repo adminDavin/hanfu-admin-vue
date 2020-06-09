@@ -1,93 +1,91 @@
 <template>
-  <el-form
-    :model="ruleForm"
-    status-icon
-    style="width:500px;"
-    :rules="rules"
-    ref="ruleForm"
-    label-width="100px"
-    class="demo-ruleForm"
-  >
-    <el-form-item label="姓名" prop="checkPass">
-      <el-input type="password" v-model="ruleForm.checkPass" autocomplete="off"></el-input>
-    </el-form-item>
-    <el-form-item label="手机号" prop="pass">
-      <el-input type="password" v-model="ruleForm.pass" autocomplete="off" disabled="true"></el-input>
-    </el-form-item>
-    <el-form-item label="邀请码" prop="checkPass">
-      <el-input type="password" v-model="ruleForm.checkPass" autocomplete="off"></el-input>
-    </el-form-item>
-    <el-form-item>
-      <el-button type="primary" @click="submitForm('ruleForm')">提交</el-button>
-      <el-button @click="resetForm('ruleForm')">重置</el-button>
-    </el-form-item>
-  </el-form>
+  <div>
+    <el-form
+      ref="guiform"
+      :model="use"
+      status-icon
+      style="width:500px;"
+      :rules="rule"
+      label-width="100px"
+      class="demo-ruleForm"
+    >
+      <el-form-item label="姓名" prop="nickName">
+        <el-input type="name" v-model="use.nickName" autocomplete="off"></el-input>
+      </el-form-item>
+      <el-form-item label="手机号" prop="pass">
+        <el-input v-model="use.phone" autocomplete="off" :disabled="true"></el-input>
+      </el-form-item>
+      <el-form-item label="邀请码" prop="invitationCode">
+        <el-input v-model="use.invitationCode" autocomplete="off"></el-input>
+      </el-form-item>
+      <el-form-item>
+        <el-button type="primary" @click="updatePerson">提交</el-button>
+        <el-button @click="resetForm('guiform')">重置</el-button>
+      </el-form-item>
+    </el-form>
+  </div>
 </template>
 <script>
+import userCenterService from '@/service/userCenter.js';
 export default {
   data() {
-    var checkAge = (rule, value, callback) => {
-      if (!value) {
-        return callback(new Error("年龄不能为空"));
-      }
-      setTimeout(() => {
-        if (!Number.isInteger(value)) {
-          callback(new Error("请输入数字值"));
-        } else {
-          if (value < 18) {
-            callback(new Error("必须年满18岁"));
-          } else {
-            callback();
-          }
-        }
-      }, 1000);
-    };
-    var validatePass = (rule, value, callback) => {
-      if (value === "") {
-        callback(new Error("请输入密码"));
-      } else {
-        if (this.ruleForm.checkPass !== "") {
-          this.$refs.ruleForm.validateField("checkPass");
-        }
-        callback();
-      }
-    };
-    var validatePass2 = (rule, value, callback) => {
-      if (value === "") {
-        callback(new Error("请再次输入密码"));
-      } else if (value !== this.ruleForm.pass) {
-        callback(new Error("两次输入密码不一致!"));
-      } else {
-        callback();
-      }
-    };
     return {
-      ruleForm: {
-        pass: "",
-        checkPass: "",
-        age: ""
+      rule: {
+        name: [
+          {
+            required: true,
+            message: '请输入用户名',
+            trigger: 'blur',
+          },
+        ],
       },
-      rules: {
-        pass: [{ validator: validatePass, trigger: "blur" }],
-        checkPass: [{ validator: validatePass2, trigger: "blur" }],
-        age: [{ validator: checkAge, trigger: "blur" }]
-      }
+      use: {
+        invitationCode: '',
+        phone: '',
+        userId: '',
+        nickName: '',
+      },
+      ruleForm: {
+        nickName: '',
+      },
     };
   },
   methods: {
+    updatePerson: function() {
+      this.$refs.guiform.validate((valid) => {
+        console.log(this.use);
+        userCenterService.updatePerson(this.use, (res) => {
+          console.log(res);
+          if (res.data.data === 1) {
+            this.$message({
+              message: '更新成功',
+              type: 'success',
+            });
+            //  this.$refs[guiform].resetFields();
+          }
+        });
+      });
+    },
     submitForm(formName) {
-      this.$refs[formName].validate(valid => {
+      this.$refs[formName].validate((valid) => {
         if (valid) {
-          alert("submit!");
+          alert('submit!');
         } else {
-          console.log("error submit!!");
+          console.log('error submit!!');
           return false;
         }
       });
     },
-    resetForm(formName) {
-      this.$refs[formName].resetFields();
-    }
-  }
+    resetForm(guiform) {
+      this.$refs[guiform].resetFields();
+    },
+  },
+  mounted() {
+    var content = window.sessionStorage.getItem('userInfor');
+    this.content = JSON.parse(content);
+    this.use.userId = this.content.id;
+    this.use.phone = this.content.phone;
+    console.log(this.content);
+  },
 };
 </script>

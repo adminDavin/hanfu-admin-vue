@@ -6,6 +6,7 @@ import ElementUI from 'element-ui';
 // import 'element-ui/lib/theme-chalk/index.css';
 
 import './assets/font/iconfont.css';
+import './styles/index.less';
 
 // 简单配置axios
 import axios from 'axios';

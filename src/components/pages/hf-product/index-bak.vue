@@ -59,7 +59,7 @@
           <template slot-scope="scope">
             <span class="el" @click="biangui(scope.row)" style="color:#A6A3FB;font-family:ms sans serif;cursor: pointer;">编辑</span>
             <span class="el" @click="upFrame(scope.row)" style="margin-left: 16px;margin-right: 16px;color:#FFCE26;cursor: pointer;">{{ scope.row.isDeleted==0?'下架':'上架'}}</span>
-            <span class="el" style="color:#FF318A;cursor: pointer;" @click="deletesingle(scope.$index,scope.row)">删除</span>
+            <span class="el ff3" style="color:#FF318A;cursor: pointer;" @click="deletesingle(scope.$index,scope.row)">删除</span>
           </template>
         </el-table-column>
       </el-table>

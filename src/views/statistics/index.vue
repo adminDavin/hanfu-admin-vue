@@ -181,14 +181,12 @@
 </template>
 
 <script>
-import echarts from 'echarts'
+import echarts from 'echarts';
 export default {
-  data: () => {
-    return {}
-  },
+  data: () => ({}),
   methods: {
     admins () {
-      var myChart1 = echarts.init(document.getElementById('main1'))
+      var myChart1 = echarts.init(document.getElementById('main1'));
       var option = {
         legend: {},
         tooltip: {},
@@ -198,28 +196,28 @@ export default {
             ['Matcha Latte', 43.3, 85.8, 93.7],
             ['Milk Tea', 83.1, 73.4, 55.1],
             ['Cheese Cocoa', 86.4, 65.2, 82.5],
-            ['Walnut Brownie', 72.4, 53.9, 39.1]
-          ]
+            ['Walnut Brownie', 72.4, 53.9, 39.1],
+          ],
         },
         xAxis: { type: 'category' },
         color: ['#A3A0FB', '#55D8FE', '#28F29A'],
         yAxis: {},
-        series: [{ type: 'bar' }, { type: 'bar' }, { type: 'bar' }]
-      }
-      myChart1.setOption(option)
+        series: [{ type: 'bar' }, { type: 'bar' }, { type: 'bar' }],
+      };
+      myChart1.setOption(option);
     },
     admin () {
-      var myChart = echarts.init(document.getElementById('main'))
+      var myChart = echarts.init(document.getElementById('main'));
       var option = {
         tooltip: {
           trigger: 'item',
-          formatter: '{a} <br/>{b}: {c} ({d}%)'
+          formatter: '{a} <br/>{b}: {c} ({d}%)',
         },
         legend: {
           orient: 'vertical',
           x: 'left',
           // eslint-disable-next-line standard/array-bracket-even-spacing
-          data: ['直接访问', '邮件营销', '联盟广告', '视频广告']
+          data: ['直接访问', '邮件营销', '联盟广告', '视频广告'],
         },
         series: [
           {
@@ -231,39 +229,39 @@ export default {
             label: {
               normal: {
                 show: false,
-                position: 'center'
+                position: 'center',
               },
               emphasis: {
                 show: true,
                 textStyle: {
                   fontSize: '30',
-                  fontWeight: 'bold'
-                }
-              }
+                  fontWeight: 'bold',
+                },
+              },
             },
             labelLine: {
               normal: {
-                show: false
-              }
+                show: false,
+              },
             },
             data: [
               { value: 500, name: '直接访问' },
               { value: 500, name: '邮件营销' },
               { value: 500, name: '联盟广告' },
-              { value: 500, name: '视频广告' }
-            ]
-          }
-        ]
-      }
-      myChart.setOption(option)
-    }
+              { value: 500, name: '视频广告' },
+            ],
+          },
+        ],
+      };
+      myChart.setOption(option);
+    },
   },
   mounted () {
-    this.admin()
-    this.admins()
-    this.admins()
-  }
-}
+    this.admin();
+    this.admins();
+    this.admins();
+  },
+};
 </script>
 
 <style scoped="scoped">

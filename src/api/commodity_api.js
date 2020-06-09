@@ -1,5 +1,5 @@
 /* eslint-disable require-jsdoc */
-import Axios from 'axios';
+import Axios from './index';
 // =============================================商品模块
 // 获取商品列表
 function getProductList () {
@@ -157,16 +157,16 @@ function update (params) {
 }
 // 修改物品规格
 function updatespec (params, updates, goodsId) {
-  let fd = new FormData()
-  fd.append('goodsId ', goodsId)
-  fd.append('categorySpecId ', params.categorySpecId)
-  fd.append('productSpecId', params.id)
-  fd.append('specValue ', params.specValue)
-  fd.append('requestId ', updates.requestId)
-  fd.append('timestamp ', updates.timestamp)
-  fd.append('token ', updates.token)
-  fd.append('userId ', updates.userId)
-  return Axios.post('/api/api/product/goods/spec/update', fd)
+  let fd = new FormData();
+  fd.append('goodsId ', goodsId);
+  fd.append('categorySpecId ', params.categorySpecId);
+  fd.append('productSpecId', params.id);
+  fd.append('specValue ', params.specValue);
+  fd.append('requestId ', updates.requestId);
+  fd.append('timestamp ', updates.timestamp);
+  fd.append('token ', updates.token);
+  fd.append('userId ', updates.userId);
+  return Axios.post('/api/api/product/goods/spec/update', fd);
 }
 // 按条件查询商品
 function search (id, cateId, name) {
@@ -293,10 +293,10 @@ function addSpec (params) {
 function selectProductGoods (id) {
   let params = {
     params: {
-      productId: id
-    }
-  }
-  return Axios.get('/api/api/product/product/selectProductGoods', params)
+      productId: id,
+    },
+  };
+  return Axios.get('/api/api/product/product/selectProductGoods', params);
 }
 
 // 上传图片
@@ -363,4 +363,4 @@ export default {
   specification: specification,
   selectProductGoods: selectProductGoods,
   updatespec: updatespec,
-}
+};

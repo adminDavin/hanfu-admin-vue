@@ -121,9 +121,9 @@ export default {
           console.log(valid);
           try {
             // eslint-disable-next-line no-unused-vars
-            await this.$http.get('/api/api/user/user/code?phone=' + this.loginForm.authKey).then((res) => {
-              this.loginForm.code = res.data.data;
-            });
+            // await this.$http.post('/api/api/user/user/code?phone=' + this.loginForm.authKey).then((res) => {
+            //   this.loginForm.code = res.data.data;
+            // });
             // this.$router.push('/')
           } catch (e) {
             // 进行错误提示即可
